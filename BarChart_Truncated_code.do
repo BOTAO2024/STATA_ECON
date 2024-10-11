@@ -71,6 +71,19 @@ gen cum_independent_variable_1_capped = min(cum_independent_variable_1, 20000000
 gen cum_independent_variable_2_capped = min(cum_independent_variable_2, 200000000)
 gen cum_independent_variable_3_capped = min(cum_independent_variable_3, 200000000)
 
+// Locate the position of text or number on chart
+* y_label means to determine the y-axis position of text; if determines the x-axis position of text *
+replace y_label = (cum_independent_variable_3 - 70000000) if month_date >= tm(2018m12) & month_date <= tm(2018m12)
+* label_text means the content of text; if determines the x-axis position of text as before *
+replace label_text = string(cum_independent_variable_3, "%9.0f") if month_date >= tm(2018m12) & month_date <= tm(2018m12)
+
+* continue the same steps to make other numbers display
+replace y_label = (cum_independent_variable_3 - 90000000) if month_date >= tm(2019m12) & month_date <= tm(2019m12)
+replace label_text = string(cum_independent_variable_3, "%9.0f") if month_date >= tm(2019m12) & month_date <= tm(2019m12)
+
+replace y_label = (cum_independent_variable_3 - 230000000) if month_date >= tm(2020m2) & month_date <= tm(2020m2)
+replace label_text = string(cum_independent_variable_3, "%9.0f") if month_date >= tm(2020m2) & month_date <= tm(2020m2)
+
 * Plot the stacked bar chart
 twoway ///
     (rbar zero cum_independent_variable_1_capped month, color(blue)) ///
